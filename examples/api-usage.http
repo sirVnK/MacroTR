@@ -1,0 +1,23 @@
+### Health
+GET http://localhost:8010/api/v1/health
+
+### Series list
+GET http://localhost:8010/api/v1/series
+
+### Series detail
+GET http://localhost:8010/api/v1/series/USDTRY
+
+### Observations
+GET http://localhost:8010/api/v1/series/USDTRY/observations?limit=30
+
+### Latest
+GET http://localhost:8010/api/v1/series/USDTRY/latest
+
+### Dashboard summary
+GET http://localhost:8010/api/v1/dashboard/summary
+
+### Compare
+GET http://localhost:8010/api/v1/compare?series=USDTRY,CPI&normalize=true
+
+### Fetch data in local/dev
+POST http://localhost:8010/api/v1/admin/fetch-data

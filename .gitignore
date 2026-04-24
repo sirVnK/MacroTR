@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+pytest-cache-files-*/
+.venv/
+venv/
+
+# Node
+node_modules/
+dist/
+build/
+.vite/
+coverage/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Secrets
+*.key
+*.pem
+*.secret
+secrets.json
+
+# Databases and outputs
+*.db
+*.sqlite
+postgres-data/
+
+# Editors
+.idea/
+.vscode/
+.DS_Store
+*.log
+
+# Private / internal planning docs (never commit)
+_private/
+private/
+internal/
+planning/
+prompts/
+
+# Raw screenshots folder (use docs/assets/ for repo images)
+screenshoots/
+screenshots/

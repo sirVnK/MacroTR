@@ -1,0 +1,15 @@
+{
+  "series_code": "USDTRY",
+  "count": 2,
+  "observations": [
+    {
+      "date": "2026-04-23",
+      "value": 39.42
+    },
+    {
+      "date": "2026-04-24",
+      "value": 39.51
+    }
+  ]
+}
+
