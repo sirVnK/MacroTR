@@ -1,161 +1,101 @@
-# MacroTR
+# MacroTR — Turkish Macroeconomic Dashboard
 
-Open-source Turkish macroeconomic data dashboard powered by TCMB EVDS, FastAPI, React, PostgreSQL and Redis.
+An open-source dashboard for Turkish macroeconomic indicators, built on TCMB EVDS data with a FastAPI backend, a React frontend and a PostgreSQL database. This project connects my economics background with software engineering.
 
-> MacroTR is built for educational and informational purposes only. It does not provide investment advice, trading signals, or financial advisory services. Data is provided as-is from public or third-party sources without any guarantee of accuracy.
+## Overview
 
-[Türkçe README](README.tr.md)
+MacroTR pulls macroeconomic data from the TCMB EVDS (Electronic Data Delivery System) and presents Turkish economic indicators through a clean web dashboard. It's a full-stack project covering data ingestion, API design, storage and visualization.
 
-## Screenshots
+## Motivation
 
-![MacroTR Dashboard](docs/assets/dashboard.png)
-
-![Series Detail](docs/assets/series-detail.png)
-
-![Compare Page](docs/assets/compare-page.png)
+My background is in both engineering and economics. MacroTR is where those two meet: it lets me work with real open economic data while practicing full-stack engineering — API design, a relational database, and a modern frontend.
 
 ## Features
 
-- TCMB EVDS-focused macroeconomic dashboard
-- FastAPI backend with documented `/api/v1` endpoints
-- React, Vite, TypeScript, Tailwind CSS and Recharts frontend
-- PostgreSQL storage for series and observations
-- Redis-ready cache service
-- Demo seed mode when `EVDS_API_KEY` is not configured
-- Real EVDS ingestion when `EVDS_API_KEY` is configured
-- Series detail pages with date range filtering and CSV export
-- Compare page with normalized/raw mode and preset comparisons
-- Backend and frontend tests
-- Docker Compose for one-command local setup
+- Ingestion of TCMB EVDS macroeconomic data
+- FastAPI backend exposing a clean data API
+- React frontend dashboard
+- PostgreSQL storage
+- Open data, open source
+
+## Architecture
+
+```
+TCMB EVDS API
+      |
+ FastAPI Backend (ingest + serve)
+      |
+ PostgreSQL (storage)
+      |
+ React Frontend (dashboard)
+```
 
 ## Tech Stack
 
-- Backend: Python, FastAPI, Pydantic, SQLAlchemy, Alembic
-- Frontend: React, Vite, TypeScript, Tailwind CSS, Recharts, TanStack Query
-- Database: PostgreSQL
-- Cache: Redis
-- Deployment targets: Vercel, Railway, Render, Fly.io, Neon, Supabase
+- **Backend:** FastAPI (Python)
+- **Frontend:** React
+- **Database:** PostgreSQL
+- **Data Source:** TCMB EVDS
+- **Domain:** Turkish macroeconomics / open data
 
-## Quickstart
+## Installation
 
-```bash
-cp .env.example .env
-docker compose up --build -d
-```
-
-Open:
-
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:8010
-- Swagger: http://localhost:8010/docs
-
-Stop:
+> Adapt to the actual setup in this repository.
 
 ```bash
-docker compose down
-```
+git clone https://github.com/Logshi/MacroTR.git
+cd MacroTR
 
-## Environment Variables
+# Backend
+pip install -r requirements.txt
 
-| Variable | Purpose |
-| --- | --- |
-| `APP_ENV` | `development` or `production` |
-| `DATABASE_URL` | PostgreSQL connection URL |
-| `REDIS_URL` | Optional Redis connection URL |
-| `EVDS_API_KEY` | TCMB EVDS API key (optional) |
-| `SEED_SAMPLE_DATA` | Enables local demo observations |
-| `ALLOWED_ORIGINS` | CORS origins |
-| `VITE_API_BASE_URL` | Frontend API base URL |
-| `BACKEND_PORT` | Local backend host port, default `8010` |
-| `FRONTEND_PORT` | Local frontend host port, default `5173` |
-
-## EVDS API Key
-
-MacroTR works without an EVDS key by using deterministic local demo data.
-
-To fetch real TCMB EVDS data:
-
-1. Create an API key at https://evds2.tcmb.gov.tr.
-2. Add it to `.env`:
-
-```env
-EVDS_API_KEY=your-key
-SEED_SAMPLE_DATA=false
-```
-
-3. Restart the stack and trigger local/dev ingestion:
-
-```bash
-docker compose up --build -d
-curl -X POST "http://localhost:8010/api/v1/admin/fetch-data"
-```
-
-`POST /api/v1/admin/fetch-data` is disabled automatically when `APP_ENV=production`.
-
-## API Endpoints
-
-- `GET /api/v1/health`
-- `GET /api/v1/series`
-- `GET /api/v1/series/{code}`
-- `GET /api/v1/series/{code}/observations`
-- `GET /api/v1/series/{code}/latest`
-- `GET /api/v1/dashboard/summary`
-- `GET /api/v1/compare?series=USDTRY,CPI`
-- `POST /api/v1/admin/fetch-data`
-
-See [API Reference](docs/api-reference.md) for full documentation and example responses.
-
-## Tests
-
-Backend:
-
-```bash
-pip install -r backend/requirements.txt
-ruff check backend/app backend/tests scripts
-pytest
-```
-
-Frontend:
-
-```bash
+# Frontend
 cd frontend
 npm install
-npm run test
-npm run build
 ```
 
-## Deployment
+You will need a TCMB EVDS API key (kept in environment variables, **never committed**) and a running PostgreSQL instance.
 
-Frontend can be deployed to Vercel with `frontend` as the project root and `VITE_API_BASE_URL` pointing to the backend.
+## Usage
 
-Backend can be deployed to Railway, Render or Fly.io using `backend/Dockerfile`. Use managed PostgreSQL from Neon, Supabase, Railway or Render.
+```bash
+# Backend
+uvicorn app.main:app --reload
 
-See [Deployment](docs/deployment.md).
+# Frontend
+cd frontend
+npm run dev
+```
 
-## Data Sources
+## Demo
 
-The MVP focuses on TCMB EVDS. Future versions may add TÜİK, World Bank, FRED, BIST or gold/FX providers.
+> Placeholders — replace with real screenshots.
 
-See [Data Sources](docs/data-sources.md).
+- `docs/screenshots/dashboard.png`
 
-## Documentation
+## Results
 
-- [Architecture](docs/architecture.md)
-- [Data Sources](docs/data-sources.md)
-- [API Reference](docs/api-reference.md)
-- [Deployment](docs/deployment.md)
-- [Open Source Guide](docs/open-source-guide.md)
-- [Security Notes](docs/security-notes.md)
-- [Roadmap](ROADMAP.md)
+A working full-stack dashboard over TCMB EVDS data. Specific indicator coverage and refresh behavior are documented in the app.
 
-## Disclaimer
+## Roadmap
 
-MacroTR is built for educational and informational purposes only. It does not provide investment advice, trading signals, or financial advisory services. Data is provided as-is from public or third-party sources without any guarantee of accuracy.
+- [ ] Expand indicator coverage
+- [ ] Add caching / scheduled data refresh
+- [ ] Charts and comparison views
+- [ ] Containerized deployment (Docker)
+- [ ] Tests and CI
 
-## Contributing
+## What I Learned
 
-Contributions are welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the good first issues in [Open Source Guide](docs/open-source-guide.md).
+- Building a full-stack application end to end
+- Designing a FastAPI service and PostgreSQL schema
+- Working with a real external data API (TCMB EVDS)
+- Connecting economics domain knowledge to a software product
+
+## Security & Privacy
+
+API keys and database credentials are kept in environment variables and **never committed**. No personal or sensitive data is stored in the repository.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
