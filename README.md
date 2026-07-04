@@ -43,7 +43,7 @@ TCMB EVDS API
 > Adapt to the actual setup in this repository.
 
 ```bash
-git clone https://github.com/Logshi/MacroTR.git
+git clone https://github.com/sirVnK/MacroTR.git
 cd MacroTR
 
 # Backend
